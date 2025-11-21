@@ -2,7 +2,7 @@ genesis-world
 wheel
 torch>=2.5.0
 lightning>=2.5.0.post0
-numpy>=1.21.1
+numpy==1.26.4
 termcolor>=1.1.0
 scikit-image
 rtree==1.2.0

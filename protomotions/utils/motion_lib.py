@@ -57,6 +57,8 @@ class LoadedMotions(nn.Module):
             "has_text_embeddings", has_text_embeddings, persistent=False
         )
 
+from torch.serialization import add_safe_globals
+add_safe_globals([LoadedMotions])
 
 class MotionLib(DeviceDtypeModuleMixin):
     gts: Tensor
@@ -112,7 +114,7 @@ class MotionLib(DeviceDtypeModuleMixin):
             print(f"Loading motions from state file: {motion_file}")
 
             with open(motion_file, "rb") as file:
-                state: LoadedMotions = torch.load(file, map_location="cpu")
+                state: LoadedMotions = torch.load(file, map_location="cpu", weights_only=False)
 
             # Create LoadedMotions instance with loaded state dict
             # We re-create to enable backwards compatibility. This allows LoadedMotions class to accept "None" values and set defaults if needed.

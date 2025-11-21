@@ -1,0 +1,160 @@
+motions:
+  - id: 0
+    name: "jz_walk1"
+    file: "1-h1_retargeted/1.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 1
+    name: "jz_walk2"
+    file: "2-h1_retargeted/2.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 2
+    name: "jz_walk1"
+    file: "3-h1_retargeted/3.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 3
+    name: "jz_walk2"
+    file: "4-h1_retargeted/4.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 4
+    name: "jz_walk1"
+    file: "5-h1_retargeted/5.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 5
+    name: "jz_walk2"
+    file: "6-h1_retargeted/6.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 6
+    name: "jz_walk1"
+    file: "7-h1_retargeted/7.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 7
+    name: "jz_walk2"
+    file: "8-h1_retargeted/8.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 8
+    name: "jz_walk1"
+    file: "9-h1_retargeted/9.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 9
+    name: "jz_walk2"
+    file: "10-h1_retargeted/10.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 10
+    name: "jz_walk1"
+    file: "11-h1_retargeted/11.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 11
+    name: "jz_walk2"
+    file: "12-h1_retargeted/12.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 12
+    name: "jz_walk1"
+    file: "13-h1_retargeted/13.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 13
+    name: "jz_walk2"
+    file: "14-h1_retargeted/14.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 14
+    name: "jz_walk1"
+    file: "15-h1_retargeted/15.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 15
+    name: "jz_walk2"
+    file: "16-h1_retargeted/16.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 16
+    name: "jz_walk1"
+    file: "17-h1_retargeted/17.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 17
+    name: "jz_walk2"
+    file: "18-h1_retargeted/18.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 18
+    name: "jz_walk1"
+    file: "19-h1_retargeted/19.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"
+
+  - id: 19
+    name: "jz_walk2"
+    file: "20-h1_retargeted/20.npy"
+    fps: 30.0
+    weight: 1.0
+    subject: "jz"
+    gender: "male"

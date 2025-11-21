@@ -332,32 +332,54 @@ def main(
                 )
 
                 if generate_flipped:
-                    formats = ["regular", "flipped"]
+                    formats = ["regular", "flipped", "rx_p90", "ry_p90", "rz_p90"]
                 else:
-                    formats = ["regular"]
+                    # formats = ["regular", "rx_p90", "ry_p90", "rz_p90"]
+                    formats = ["regular", "rx_p90"]
+
+                rot_dict = {
+                    "regular": None,
+                    "flipped": None,
+                    "rx_p90": sRot.from_euler("x", 90, degrees=True),
+                    "rx_m90": sRot.from_euler("x", -90, degrees=True),
+                    "ry_p90": sRot.from_euler("y", 90, degrees=True),
+                    "ry_m90": sRot.from_euler("y", -90, degrees=True),
+                    "rz_p90": sRot.from_euler("z", 90, degrees=True),
+                    "rz_m90": sRot.from_euler("z", -90, degrees=True),
+                }
 
                 for format in formats:
                     if robot_cfg["upright_start"]:
                         B = pose_aa.shape[0]
-                        pose_quat_global = (
-                            (
-                                sRot.from_quat(
-                                    sk_state.global_rotation.reshape(-1, 4).numpy()
-                                )
-                                * sRot.from_quat([0.5, 0.5, 0.5, 0.5]).inv()
-                            )
-                            .as_quat()
-                            .reshape(B, -1, 4)
+                        base_rot = sRot.from_quat(
+                            sk_state.global_rotation.reshape(-1, 4).numpy()
                         )
+                        upright = sRot.from_quat([0.5, 0.5, 0.5, 0.5]).inv()
+                        pose_quat_global = (
+                            base_rot * upright
+                        ).as_quat().reshape(B, -1, 4)
                     else:
                         pose_quat_global = sk_state.global_rotation.numpy()
 
                     trans = root_trans_offset.clone()
+
                     if format == "flipped":
                         pose_quat_global = pose_quat_global[:, left_to_right_index]
                         pose_quat_global[..., 0] *= -1
                         pose_quat_global[..., 2] *= -1
                         trans[..., 1] *= -1
+
+                    q_fix = rot_dict.get(format, None)
+                    if q_fix is not None:
+                        B, J, _ = pose_quat_global.shape
+                        R_body = sRot.from_quat(pose_quat_global.reshape(-1, 4))
+                        R_new = q_fix * R_body
+                        pose_quat_global = R_new.as_quat().reshape(B, J, 4)
+
+                        Rm = q_fix.as_matrix().astype(np.float32)  # [3,3]
+                        trans_np = trans.numpy()                    # [T,3]
+                        trans_np = trans_np @ Rm.T                  # row vector * R^T
+                        trans = torch.from_numpy(trans_np)
 
                     new_sk_state = SkeletonState.from_rotation_and_root_translation(
                         skeleton_tree,
@@ -376,7 +398,6 @@ def main(
                         )
 
                         print("Force retargeting motion using mink retargeter...")
-                        # Convert to 30 fps to speedup Mink retargeting
                         skip = int(mocap_fr // 30)
                         new_sk_state = SkeletonState.from_rotation_and_root_translation(
                             skeleton_tree,
@@ -393,6 +414,18 @@ def main(
                         new_sk_motion = retarget_motion(
                             motion=new_sk_motion, robot_type=robot_type, render=False
                         )
+
+                    outpath_to_save = outpath
+                    if format != "regular":
+                        outpath_to_save = outpath.with_name(
+                            outpath.stem + f"_{format}" + outpath.suffix
+                        )
+
+                    print(f"Saving to {outpath_to_save}")
+                    if robot_type in ["h1", "g1"]:
+                        torch.save(new_sk_motion, str(outpath_to_save))
+                    else:
+                        new_sk_motion.to_file(str(outpath_to_save))
 
                     if format == "flipped":
                         outpath = outpath.with_name(
